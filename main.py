@@ -1,63 +1,62 @@
 import pyautogui
 import pyperclip
 import time
-import win32con
-import win32gui
+import keyboard  # To detect the Pause key state
 
-def always_on_top(hwnd):
-    """Sets the specified window to always be on top."""
-    win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, win32con.SWP_NOSIZE | win32con.SWP_NOMOVE)
+paused = False  # Variable to track the pause state
 
 while True:
     # Get text from the clipboard
     text = pyperclip.paste()
     
-  
     # Prompt the user for the time needed, defaulting to 2 seconds
     time_needed = pyautogui.prompt(
         f"Type the text: {text}"
     )
 
-    # If the user presses "Cancel", time_needed will be None, so exit the program
+    # If the user presses "Cancel", skip the rest of the loop
     if time_needed is None:
         continue
-     # If the user inputs -1 or 'q', exit the program
-    if time_needed == -1 or time_needed.lower() == 'q':
+    
+    # If the user inputs -1 or 'q', exit the program
+    if time_needed == '-1' or time_needed.lower() == 'q':
         break
     
-
-   
-    # If the user inputs nothing, use the default time
+    # If the user inputs nothing, use the default time of 1 second
     if time_needed.strip() == "":
         time_needed = 1
     else:
         try:
-            time_needed = 1 #int(time_needed)
+            # Attempt to convert the input to a float value
+            time_needed = float(time_needed)
         except ValueError:
-            # Handle non-integer inputs gracefully
+            # Handle non-numeric inputs gracefully
             pyautogui.alert("Invalid input. Please enter a number or 'q' to exit.")
             continue
 
-    
-
     # Wait for the specified time before typing
     time.sleep(time_needed)
-    
-    
 
-    # Type the clipboard content with a typing interval of 0.14 seconds
-    pyautogui.write(text, interval=0.2)
-    
+    for char in text:
+        # Check if the Pause key is pressed
+        if keyboard.is_pressed('pause'):
+            paused = not paused  # Toggle the pause state
+            state = "paused" if paused else "resumed"
+            pyautogui.alert(f"Typing has been {state}. Press Pause key to toggle again.")
+            time.sleep(0.5)  # Small delay to avoid rapid toggling
+            
+        # If paused, wait until unpaused
+        while paused:
+            if keyboard.is_pressed('pause'):
+                paused = not paused
+                pyautogui.alert(f"Typing resumed. Press Pause key to toggle again.")
+                time.sleep(0.5)  # Delay to avoid immediate re-pause
+
+        # Type each character with the specified interval
+        pyautogui.write(char, interval=0.08)
+
+    # Wait for half a second before pressing Enter
     time.sleep(0.5)
-    # Press 'Enter' after typing
-     # Press 'Ctrl + Enter' after typing
+    
+    # Press 'Ctrl + Enter' after typing
     pyautogui.hotkey('ctrl', 'enter')
-    
-      # Get the handle of the active window
-    #hwnd = win32gui.GetForegroundWindow()
-
-    # Set the active window to always be on top
-    #always_on_top(hwnd)
-
-
-    
