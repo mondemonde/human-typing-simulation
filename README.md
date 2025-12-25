@@ -91,6 +91,7 @@ pip install pyperclip --user
 5. you can cancel to load the lates copied text
 6. Now Placing the cursor at starting position where you want to start the simulator to type in like in the open notepad or somewher else.
 7. Click the "ok"  button to simulate typing
+8. typw "q" or "-1" to quit in the text input
 
 <br />
 
