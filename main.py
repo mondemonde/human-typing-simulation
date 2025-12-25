@@ -10,7 +10,7 @@ while True:
     text = pyperclip.paste()
 
     # Prompt the user for the time needed, defaulting to 2 seconds
-    time_needed = pyautogui.prompt(f"Type the text: {text}")
+    time_needed = pyautogui.prompt(f"Type the text: {text}")  # type: ignore
 
     # If the user presses "Cancel", skip the rest of the loop
     if time_needed is None:
@@ -29,7 +29,7 @@ while True:
             time_needed = float(time_needed)
         except ValueError:
             # Handle non-numeric inputs gracefully
-            pyautogui.alert("Invalid input. Please enter a number or 'q' to exit.")
+            pyautogui.alert("Invalid input. Please enter a number or 'q' to exit.")  # type: ignore
             continue
 
     # Wait for the specified time before typing
@@ -44,7 +44,7 @@ while True:
         if keyboard.is_pressed("pause"):
             paused = not paused  # Toggle the pause state
             state = "paused" if paused else "resumed"
-            pyautogui.alert(
+            pyautogui.alert(  # type: ignore
                 f"Typing has been {state}. Press Pause key to toggle again."
             )
             time.sleep(0.5)  # Small delay to avoid rapid toggling
@@ -53,7 +53,7 @@ while True:
         while paused:
             if keyboard.is_pressed("pause"):
                 paused = not paused
-                pyautogui.alert(f"Typing resumed. Press Pause key to toggle again.")
+                pyautogui.alert(f"Typing resumed. Press Pause key to toggle again.")  # type: ignore
                 time.sleep(0.5)  # Delay to avoid immediate re-pause
 
         # Check if the current character is a newline
