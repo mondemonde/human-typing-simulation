@@ -85,9 +85,12 @@ pip install pyperclip --user
 ## Usage
 
 1. Run the main.py in terminal
-2. Estimate time you need before the simulator starts typing which should include:
-   * Time required changing the window to the editor you want to use
-   *   Placing the cursor at starting position where you want to start the simulator to type in 
+2. copy any text using ctrl+c
+3. in the python GUI you can enter delay time or leave it blank
+4. the copied text appeard in the top of time input
+5. you can cancel to load the lates copied text
+6. Now Placing the cursor at starting position where you want to start the simulator to type in like in the open notepad or somewher else.
+7. Click the "ok"  button to simulate typing
 
 <br />
 

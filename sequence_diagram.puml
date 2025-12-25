@@ -1,0 +1,76 @@
+@startuml Human Typing Simulator Sequence Diagram
+
+title Human Typing Simulator Flow
+
+actor User
+participant Main as main.py
+participant Clipboard as pyperclip
+participant GUI as pyautogui
+participant Keyboard as keyboard
+
+== Initialization ==
+User -> main.py: Run main.py
+main.py -> main.py: Enter infinite loop
+
+== Main Loop ==
+loop while true
+
+    main.py -> Clipboard: paste() - get text from clipboard
+    Clipboard --> main.py: return text
+
+    main.py -> GUI: prompt("Type the text: {text}") - ask for delay time
+    GUI --> main.py: return time_needed (or None)
+
+    alt User pressed Cancel
+        main.py -> main.py: continue loop
+    else User entered -1 or 'q'
+        main.py -> main.py: break - exit program
+    else User entered valid time
+        main.py -> main.py: parse time_needed (default 1 if empty)
+        main.py -> main.py: time.sleep(time_needed)
+    end
+
+    == Typing Process ==
+    main.py -> main.py: Initialize char_count = 1, isNewLine = false
+
+    loop for each char in text
+        main.py -> main.py: char_count += 1
+
+        alt char_count % 15 == 0
+            main.py -> main.py: time.sleep(0.5)
+        end
+
+        main.py -> Keyboard: is_pressed("pause") - check pause key
+        Keyboard --> main.py: return pause state
+
+        alt Pause pressed
+            main.py -> main.py: toggle paused state
+            main.py -> GUI: alert("Typing {paused/resumed}")
+            main.py -> main.py: time.sleep(0.5)
+        end
+
+        alt paused == true
+            main.py -> Keyboard: is_pressed("pause") - wait for resume
+            Keyboard --> main.py: return true when pressed
+            main.py -> GUI: alert("Typing resumed")
+            main.py -> main.py: time.sleep(0.5)
+        end
+
+        alt char == '\\n'
+            main.py -> GUI: press("enter")
+            main.py -> main.py: time.sleep(0.5)
+            main.py -> GUI: press("home")
+        else char == '\\r'
+            main.py -> main.py: isNewLine = true
+        else
+            main.py -> GUI: write(char, interval=0.005)
+            main.py -> main.py: isNewLine = false
+        end
+
+    end loop
+
+    main.py -> GUI: hotkey("ctrl", "enter")
+
+end loop
+
+@enduml
