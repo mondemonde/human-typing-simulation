@@ -19,6 +19,7 @@ https://mtlynch.io/key-mime-pi/
 5. (venv) pi@keymimepi:~/key-mime-pi $ PORT=8000 ./app/main.py
 
  /* Serving Flask app "main" (lazy loading)
+ always use FIREFOX
  http://192.168.1.15:8000/
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
