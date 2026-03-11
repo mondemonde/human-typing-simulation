@@ -93,8 +93,10 @@ pip install pyperclip --user
 7. Click the "ok"  button to simulate typing
 8. typw "q" or "-1" to quit in the text input
 
-<br />
+9. juct crl+copy the text then hit cancel button to update the text to write
 
+<br />
+ 
 
 <!-- CONTRIBUTING -->
 <!-- ## Contributing

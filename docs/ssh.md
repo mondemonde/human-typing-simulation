@@ -5,6 +5,8 @@
 
 ```js
 
+https://mtlynch.io/key-mime-pi/
+
 1. PS C:\Users\RaymundGalvez.AzureAD> ssh pi@192.168.1.15
 2. pi@192.168.1.15's password:
 //ps...23
@@ -17,6 +19,7 @@
 5. (venv) pi@keymimepi:~/key-mime-pi $ PORT=8000 ./app/main.py
 
  /* Serving Flask app "main" (lazy loading)
+ http://192.168.1.15:8000/
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
