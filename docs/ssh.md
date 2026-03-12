@@ -26,6 +26,6 @@ https://mtlynch.io/key-mime-pi/
    Use a production WSGI server instead.
  * Debug mode: off */
 
-
+6. (venv) pi@keymimepi:~/key-mime-pi $ sudo shutdown -h now
 
 ```
